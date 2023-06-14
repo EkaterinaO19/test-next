@@ -1,17 +1,14 @@
 import React from 'react';
 import ProductCard from "@/app/components/ProductCard";
+import Link from "next/link";
 
-async function getProducts(){
+async function getProducts() {
     try {
         const response = await fetch(`https://app.ecwid.com/api/v3/58958138/products`, {
             headers: {
                 "Content-type": "application/json",
                 "Authorization": "Bearer public_7BxbJGWyDaZfSQqjVS5Ftr4jzXkS43UD"
-            },
-            // Отправка запроса и обновление кэша
-            // next: {
-            //     revalidate: 1000;
-            // }
+            }
         });
 
         if (response.ok) {
@@ -32,7 +29,14 @@ async function RecommendedProducts(props) {
             <h1 className={"font-bold text-4xl text-center"}>Рекомендуемые товары</h1>
             <div className={"flex flex-wrap justify-center p-5"}>
                 {products.items.map(product => (
-                    <ProductCard key={product.id} name={product.name} price={product.defaultDisplayedPriceFormatted} image={product.thumbnailUrl}/>
+                    <Link href={`/products/${product.id}`} key={product.id}>
+                        <ProductCard key={product.id}
+                                     id={product.id}
+                                     name={product.name}
+                                     price={product.defaultDisplayedPriceFormatted}
+                                     image={product.thumbnailUrl}
+                        />
+                    </Link>
                 ))}
             </div>
         </section>
