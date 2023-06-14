@@ -35,15 +35,16 @@ async function getProducts(){
 }
 async function Products (props) {
     const products = await getProducts();
-
     return  <>
         <h1>products</h1>
         <p>{products.total}</p>
-
         <ul>
             {products.items.map(item => (
                 <li key={item.id}>
-                    <Link href={`/product/${item.id}`}>{item.name}</Link>
+                    <Link href={`/products/${item.id}`}>
+                        {item.id}
+                        {item.name}
+                    </Link>
                 </li>
             ))}
         </ul>

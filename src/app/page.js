@@ -1,10 +1,11 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+import MainScreen from "@/app/components/MainScreen";
+import ProductsCategories from "@/app/components/ProductsCategories";
 
 export default function Home() {
   return (
     <main>
-      home
+        <MainScreen />
+        <ProductsCategories />
     </main>
   )
 }
