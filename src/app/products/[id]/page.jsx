@@ -25,13 +25,13 @@ async function getProduct(productId) {
 }
 
 
-async function ProductPage({params}) {
-    const [product, setProduct] = useState(null);
+async function ProductPage({id}) {
+    const [product, setProduct] = useState({});
 
     useEffect(() => {
         async function fetchData() {
             try {
-                const productData = await getProduct(params.id);
+                const productData = await getProduct(id);
                 setProduct(productData);
             } catch (error) {
                 console.log(error);
@@ -39,10 +39,10 @@ async function ProductPage({params}) {
         }
 
         fetchData();
-    }, [params.id]);
+    }, [id]);
 
 
-    return !!product? <ProductCardBig product={product}/>:<></>
+    return product?<ProductCardBig product={product}/>:<></>
 }
 
 export default ProductPage;
