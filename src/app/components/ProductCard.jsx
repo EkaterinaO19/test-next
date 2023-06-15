@@ -1,8 +1,11 @@
+"use client"
+
 import React from 'react';
-import Link from "next/link";
 
 
 function ProductCard({name, price, image, id}) {
+
+
     return (
         <div className={"flex flex-wrap w-1/3"}>
             <div className="max-w-sm min-w-[340px] bg-white shadow-md rounded-3xl p-2 mx-1 my-3 cursor-pointer">
