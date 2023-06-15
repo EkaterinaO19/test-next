@@ -24,14 +24,13 @@ async function getProduct(productId) {
     return <div>{productId ? JSON.stringify(productId) : "Loading..."}</div>;
 }
 
-
-async function ProductPage({id}) {
+function ProductPage({ params }) {
     const [product, setProduct] = useState({});
 
     useEffect(() => {
         async function fetchData() {
             try {
-                const productData = await getProduct(id);
+                const productData = await getProduct(params.id);
                 setProduct(productData);
             } catch (error) {
                 console.log(error);
@@ -39,7 +38,7 @@ async function ProductPage({id}) {
         }
 
         fetchData();
-    }, [id]);
+    }, [params.id]);
 
 
     return product?<ProductCardBig product={product}/>:<></>

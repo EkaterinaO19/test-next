@@ -5,6 +5,7 @@ import Newsletter from "@/app/components/Newsletter";
 import CeoBanner from "@/app/components/CeoBanner";
 
 export default function Home() {
+
   return (
     <main>
         {/*<MainScreen />*/}

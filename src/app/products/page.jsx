@@ -8,7 +8,7 @@ export const metadata = {
     description: 'Choose style whatever you want',
 }
 
-async function Products (props) {
+function Products (props) {
     return (
             <RecommendedProducts />
         )
