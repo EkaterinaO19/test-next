@@ -8,11 +8,11 @@ export default function Home() {
 
   return (
     <main>
-        {/*<MainScreen />*/}
-        {/*<ProductsCategories />*/}
+        <MainScreen />
+        <ProductsCategories />
         <RecommendedProducts />
-        {/*<CeoBanner />*/}
-        {/*<Newsletter />*/}
+        <CeoBanner />
+        <Newsletter />
     </main>
   )
 }

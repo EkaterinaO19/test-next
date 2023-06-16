@@ -25,16 +25,6 @@ function ProductCard({name, price, image, id}) {
                     <div>
                         <p className="text-xl font-bold text-gray-900 mb-1">{name}</p>
                         <p className="text-md text-gray-800 mb-5">{price}</p>
-                        <button
-                            className={"bg-transparent border-2 border-black text-black p-2 rounded-lg hover:bg-gray-200"}>Купить
-                        </button>
-                    </div>
-                    <div className="flex flex-col-reverse mb-1 mr-4 group cursor-pointer">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover:opacity-70" fill="none"
-                             viewBox="0 0 24 24" stroke="gray">
-                            <path
-                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                        </svg>
                     </div>
                 </div>
             </div>

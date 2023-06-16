@@ -40,8 +40,9 @@ function ProductPage({ params }) {
         fetchData();
     }, [params.id]);
 
-
-    return product?<ProductCardBig product={product}/>:<></>
+    return (
+        product?<ProductCardBig product={product}/>:<></>
+    )
 }
 
 export default ProductPage;
