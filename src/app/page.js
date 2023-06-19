@@ -9,10 +9,10 @@ export default function Home() {
   return (
     <main>
         <MainScreen />
-        <ProductsCategories />
-        <RecommendedProducts />
-        <CeoBanner />
-        <Newsletter />
+        {/*<ProductsCategories />*/}
+        {/*<RecommendedProducts />*/}
+        {/*<CeoBanner />*/}
+        {/*<Newsletter />*/}
     </main>
   )
 }

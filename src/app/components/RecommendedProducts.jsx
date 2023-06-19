@@ -46,6 +46,7 @@ function RecommendedProducts(props) {
                                          name={product.name}
                                          price={product.defaultDisplayedPriceFormatted}
                                          image={product.thumbnailUrl}
+                                         inStock={product.inStock}
                             />
                         </Link>
                     ))}
