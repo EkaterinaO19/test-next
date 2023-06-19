@@ -30,7 +30,6 @@ function SearchPage(props) {
         searchProduct();
     }, [search]);
 
-    console.log("Searching for", searchData)
 
     return (
         <SearchComponent data={searchData}/>

@@ -3,32 +3,15 @@
 import React, {useEffect, useState} from 'react';
 import ProductCard from "@/app/components/ProductCard";
 import Link from "next/link";
+import {fetchProducts} from "@/app/api";
 
-async function getProducts() {
-    try {
-        const response = await fetch(`https://app.ecwid.com/api/v3/58958138/products`, {
-            headers: {
-                "Content-type": "application/json",
-                "Authorization": "Bearer public_7BxbJGWyDaZfSQqjVS5Ftr4jzXkS43UD"
-            }
-        });
-
-        if (response.ok) {
-            return response.json();
-        } else {
-            throw new Error("Request failed with status " + response.status);
-        }
-    } catch (error) {
-        console.log(error)
-    }
-}
 
 function RecommendedProducts(props) {
     const [products, setProducts] = useState({});
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        getProducts()
+        fetchProducts()
             .then(setProducts)
             .finally(() => {setLoading(false)});
     },[])

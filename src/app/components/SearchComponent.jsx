@@ -1,5 +1,6 @@
 import React from 'react';
 import ProductCard from "@/app/components/ProductCard";
+import Link from "next/link";
 
 function SearchComponent({data}) {
     const productItem = {
@@ -8,8 +9,10 @@ function SearchComponent({data}) {
             {id: 2, name: 'Каталог', href: '/products'},
         ]
     }
+
+
     return (
-        <section className="bg-white h-screen">
+        <section className="bg-white">
             <div className="pt-6 ml-8">
                 <h1 className={"font-bold text-3xl mx-auto flex mb-3"}>Поиск товаров</h1>
                 <nav aria-label="Breadcrumb">
@@ -38,30 +41,24 @@ function SearchComponent({data}) {
                             <div aria-current="page"
                                  className="font-medium text-gray-500 hover:text-gray-600 mx-auto ">
                                 Поиск
-                                {data.name}
                             </div>
                         </li>
                     </ol>
                 </nav>
+                {!data || data.length === 0 &&
+                    <h1 className={"text-xl font-bold text-gray-900 mb-1"}>No products found!</h1>}
 
-                <div className={`mr-4`}>
-                    <input
-                        type="text"
-                        placeholder="Search..."
-                        className="p-2 border rounded-md border-gray-300 focus:outline-0 w-1/3 mt-5"
-                        value={data.name}
-                    />
-                </div>
-                        {data.map(item => (
-                                <ProductCard
-                                    key={item.id}
-                                    name={item.name}
-                                    price={item.defaultDisplayedPriceFormatted}
-                                    image={item.thumbnailUrl}
-                                    inStock={item.inStock}
-                                />
-                            ))}
-                {data.length === 0 && "Товары не найдены!"}
+                {data.map(item => (
+                    <Link href={`/products/${item.id}`} key={item?.id}>
+                        <ProductCard
+                            key={item?.id}
+                            name={item?.name}
+                            price={item?.defaultDisplayedPriceFormatted}
+                            image={item?.thumbnailUrl}
+                            inStock={item?.inStock}
+                        />
+                    </Link>
+                ))}
             </div>
         </section>
     );

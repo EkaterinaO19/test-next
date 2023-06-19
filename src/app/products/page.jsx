@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react';
+import React, {Suspense} from 'react';
 import RecommendedProducts from "@/app/components/RecommendedProducts";
 
 export const metadata = {
