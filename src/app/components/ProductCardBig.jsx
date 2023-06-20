@@ -2,7 +2,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {RadioGroup} from '@headlessui/react'
 import Link from "next/link";
-import {CartContext} from "@/app/context/cartContext";
 
 
 function classNames(...classes) {
@@ -10,20 +9,6 @@ function classNames(...classes) {
 }
 
 function ProductCardBig({product}) {
-    const {items, addToCart, removeFromCart} = useContext(CartContext)
-
-    const [exists, setExists] = useState(false);
-
-    useEffect(() => {
-        const inCart = items.find((item) => item.id === product.id);
-
-        if (inCart) {
-            setExists(true);
-        } else {
-            setExists(false);
-        }
-    }, [items, product.id]);
-
 
 
     const productItem = {
@@ -157,9 +142,8 @@ function ProductCardBig({product}) {
                                     </div>
                                 </RadioGroup>
                             </div>
-                            {
-                                exists
-                                    ? ( <Link href={"/products/cart"}>
+
+                                <Link href={"/products/cart"}>
                                         <button
                                             onClick={() => addToCart({id, name, price})}
                                             className="mt-10 flex w-full items-center justify-center rounded-md bg-transparent border-2 border-black px-8 py-3 text-base font-medium text-black hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
@@ -167,23 +151,21 @@ function ProductCardBig({product}) {
                                             Добавить в корзину
                                         </button>
                                     </Link>)
-                                    : (    <button
-                                                onClick={() => removeFromCart(product.id)}
-                                                className="mt-10 flex w-full items-center justify-center rounded-md bg-transparent border-2 border-black px-8 py-3 text-base font-medium text-black hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
-                                            >
-                                                Удалить из корзины
-                                            </button>
-                                    )
-                            }
+                                        {/*<button*/}
+                                        {/*        onClick={() => removeFromCart(product.id)}*/}
+                                        {/*        className="mt-10 flex w-full items-center justify-center rounded-md bg-transparent border-2 border-black px-8 py-3 text-base font-medium text-black hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"*/}
+                                        {/*    >*/}
+                                        {/*        Удалить из корзины*/}
 
-                            <Link href={"/products/cart"}>
-                                <button
-                                    type="submit"
-                                    className="mt-10 flex w-full items-center justify-center rounded-md bg-transparent border-2 border-black px-8 py-3 text-base font-medium text-black hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
-                                >
-                                    Добавить еще
-                                </button>
-                            </Link>
+
+                            {/*<Link href={"/products/cart"}>*/}
+                            {/*    <button*/}
+                            {/*        type="submit"*/}
+                            {/*        className="mt-10 flex w-full items-center justify-center rounded-md bg-transparent border-2 border-black px-8 py-3 text-base font-medium text-black hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"*/}
+                            {/*    >*/}
+                            {/*        Добавить еще*/}
+                            {/*    </button>*/}
+                            {/*</Link>*/}
                         </form>
                     </div>
 
