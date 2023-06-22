@@ -1,10 +1,11 @@
 "use client"
 
 import React, {useEffect, useRef, useState} from 'react';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Link from "next/link";
 import CardProductsWithPrice from "@/app/components/CardProductsWithPrice";
-
+import {useRouter} from "next/navigation";
+import {updateEmail} from "@/redux/emailSlice"
 export const metadata = {
     title: 'Your Cart | Online Shop Next App',
     description: 'Add more to your style',
@@ -12,8 +13,18 @@ export const metadata = {
 
 function Cart() {
     const [openPromoInput, setOpenPromoInput] = useState(false);
-    const cart = useSelector((state) => state.cart)
+    const [email, setEmail] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [newsletterAgreeCheckbox, setNewsletterAgreeCheckbox] = useState(true)
+
+    const dispatch = useDispatch();
     const promoInputRef = useRef();
+    const router = useRouter();
+
+    const cart = useSelector((state) => state.cart)
+    const totalQuantity = useSelector(state => state.totalQuantity)
+    const totalPrice = useSelector(state => state.totalPrice)
+
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -28,17 +39,25 @@ function Cart() {
         };
     }, []);
 
-    const getTotal = () => {
-        let totalQuantity = 0
-        let totalPrice = 0
-        cart.forEach(item => {
-            totalQuantity += item.quantity || 0
-            totalPrice += item.price * item.quantity || 0
-        })
-        return {totalPrice, totalQuantity}
-    }
+    const handleSubmit = (event) => {
+        event.preventDefault();
 
-    console.log(cart)
+        if (!email) {
+            setEmailError('Пожалуйста, введите адрес электронной почты.');
+            return;
+        }
+
+        const emailPattern = /^\S+@\S+\.\S+$/;
+        if (!emailPattern.test(email)) {
+            setEmailError('Пожалуйста, введите корректный адрес электронной почты.');
+            return;
+        }
+
+        dispatch(updateEmail(email));
+        setEmailError("")
+        router.push("/products/cart/payment")
+    };
+
 
     return (
         <section>
@@ -53,7 +72,6 @@ function Cart() {
                             <Link className={"underline cursor-pointer"} href={"/products"}>Перейти в каталог</Link>
                         </div>
                     )}
-
 
                     {cart?.map(item => (
                         <CardProductsWithPrice
@@ -73,14 +91,9 @@ function Cart() {
                             <div className="mt-10 flex border-t border-gray-100 pt-10 justify-end">
                                 <div className="flex flex-col">
                                     <div className={"flex justify-between flex-col gap-3"}>
-                                        <div className={"flex"}>
-                                            <p className={"font-bold text-black text-xl"}>Количество товаров: </p>
-                                            <span className={"font-bold text-xl"}>{getTotal().totalQuantity}</span>
-                                        </div>
-                                        <div className={"flex"}>
-                                            <p className={"font-bold text-black text-xl"}>ИГОТО: </p>
-                                            <span className={"font-bold text-xl"}>{getTotal().totalPrice}</span>
-                                        </div>
+                                        <p className={"flex font-bold text-black text-xl"}>Количество
+                                            товаров: {totalQuantity}</p>
+                                        <p className={"flex font-bold text-black text-xl"}>ИГОТО: {totalPrice} P.</p>
                                     </div>
                                     <div className={"flex justify-end mt-2"}>
                                         <p className={"text-sm text-gray-700"}>Есть промо-код?
@@ -101,30 +114,35 @@ function Cart() {
                                     </div>
                                 </div>
                             </div>
-                            <div className={"flex flex-col mt-10 gap-2"}>
+                            <form
+                                onSubmit={handleSubmit}
+                                className={"flex flex-col mt-10 gap-2"}>
                                 <h1 className={"font-bold text-3xl text-center mb-3"}>Оформление заказа</h1>
                                 <p className={"mb-5"}>Введите адрес своей электронной почты. На этот адрес будут
                                     отправляться уведомления о статусе заказа.</p>
                                 <div className={"flex flex-col gap-2"}>
-                                    <input type={"email"} placeholder={"Ваш адрес элктронной почты"}
-                                           className={"w-full h-10 border-2 border-gray-800 rounded-md"}/>
-                                    <span
-                                        className={"text-sm text-red-700"}>Пожалуйста, введите адрес электронной почты</span>
+                                    <input
+                                        type={"email"}
+                                        placeholder={"Ваш адрес элктронной почты"}
+                                        className={"w-full h-10 border-2 border-gray-800 rounded-md"}
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                    />
+                                    {emailError && <span className="text-sm text-red-700">{emailError}</span>}
                                 </div>
-                                <div className={"flex gap-2 mt-3 text-gray-700"}>
-                                    <input type={"checkbox"}/>
+                                <div className={"flex gap-1 mt-3 text-gray-700"}>
+                                    <input type={"checkbox"} onChange={e => setNewsletterAgreeCheckbox(e.target.value)}/>
                                     <span className={"text-sm"}>Подписаться на новости и эксклюзивные предложения</span>
                                 </div>
                                 <div className="flex gap-5 mt-10">
-                                    <a
-                                        href="/products/cart/payment"
-                                        className="flex rounded bg-gray-700 px-5 py-3 text-lg text-gray-100 transition hover:bg-gray-600"
-                                    >
+                                    <button
+                                        type={"submit"}
+                                        className="flex rounded bg-gray-700 px-5 py-3 text-lg text-gray-100 transition hover:bg-gray-600">
                                         Оформить заказ
-                                    </a>
+                                    </button>
                                     <span className={"text-gray-700 text-sm"}>* Все данные защищены сертификатом TLS и передаются в зашифрованном виде.</span>
                                 </div>
-                            </div>
+                            </form>
                         </>
                     )}
                 </div>

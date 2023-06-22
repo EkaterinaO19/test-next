@@ -4,7 +4,7 @@ import React, {useState} from 'react';
 import {addToCart} from "@/redux/cartSlice";
 import {useDispatch} from "react-redux";
 import Link from "next/link";
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -90,19 +90,21 @@ function ProductCardBig({product}) {
                                     </a>
                                 </div>
                                 <div className="flex gap-8 ">
-                                    {/*{product?.options[0]?.choices?.map((choice, index) => (*/}
-                                    {/*    <label key={index}>*/}
-                                    {/*        <input*/}
-                                    {/*            className={"cursor-pointer"}*/}
-                                    {/*            type="radio"*/}
-                                    {/*            name="size"*/}
-                                    {/*            value={choice.text}*/}
-                                    {/*            checked={selectedSize === choice.text}*/}
-                                    {/*            onChange={handleSizeChange}*/}
-                                    {/*        />*/}
-                                    {/*        <p>{choice.text}</p>*/}
-                                    {/*    </label>*/}
-                                    {/*))}*/}
+                                    {/*{product?.options.length !== 0 && (*/}
+                                    {/*    product?.options[0]?.choices?.map((choice) => (*/}
+                                    {/*        <label key={uuidv4()}>*/}
+                                    {/*            <input*/}
+                                    {/*                className={"cursor-pointer"}*/}
+                                    {/*                type="radio"*/}
+                                    {/*                name="size"*/}
+                                    {/*                value={choice.text}*/}
+                                    {/*                checked={selectedSize === choice.text}*/}
+                                    {/*                onChange={handleSizeChange}*/}
+                                    {/*            />*/}
+                                    {/*            <p>{choice.text}</p>*/}
+                                    {/*        </label>*/}
+                                    {/*    ))*/}
+                                    {/*)}*/}
                                 </div>
                             </div>
 
@@ -118,7 +120,6 @@ function ProductCardBig({product}) {
                                         defaultDisplayedPriceFormatted,
                                         imageUrl,
                                         seoDescription,
-                                        // quantity,
                                         selectedSize,
                                         price
                                     }))

@@ -11,13 +11,14 @@ import {
     PURGE,
     REGISTER,
 } from 'redux-persist'
+import {emailReducer} from "@/redux/emailSlice";
 
 const persistConfig = {
     key: 'root',
     storage,
 }
 
-const persistedReducer = persistReducer(persistConfig, cartReducer)
+const persistedReducer = persistReducer(persistConfig, cartReducer, emailReducer)
 
 export const store = configureStore({
     reducer: persistedReducer,

@@ -1,8 +1,15 @@
+"use client"
+
 import React from 'react';
 import Link from "next/link";
 import CardProductsWithPrice from "@/app/components/CardProductsWithPrice";
+import {useSelector} from "react-redux";
 
-function PaymentPage(props) {
+function PaymentPage() {
+    const email = useSelector((state) => state.email);
+
+    const cart = useSelector((state) => state.cart)
+
     return (
         <section className={"flex mt-8 flex-col wrap h-full"}>
             <header className="text-center">
@@ -10,7 +17,16 @@ function PaymentPage(props) {
             </header>
             <div className={"flex"}>
                 <div className="w-1/2">
-                    <CardProductsWithPrice/>
+                    {cart?.map(item => (
+                        <CardProductsWithPrice
+                            key={item.uId}
+                            name={item.name}
+                            price={item.defaultDisplayedPriceFormatted}
+                            image={item.imageUrl}
+                            quantity={item.quantity}
+                            id={item.id}
+                        />
+                    ))}
                 </div>
                 <div className="w-1/2 mt-8 flex gap-3">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -21,14 +37,13 @@ function PaymentPage(props) {
                     <div>
                         <p className={"flex font-bold mb-3"}>Адрес электронной почты:</p>
                         <div className={"flex gap-3"}>
-                            <span>mail.com</span>
-                            <span className={"underline"}><Link
-                                href={'/products/cart'}>Изменить адрес почты</Link></span>
+                            <span>{email}</span>
+                            <Link className={"underline"} href={'/products/cart'}>Изменить адрес почты</Link>
                         </div>
                         <div className={"flex gap-3 mt-5 flex-col"}>
                             <h1 className={"flex font-bold"}>Оплата:</h1>
                             <div className={"flex gap-2"}>
-                                <input type={"radio"} checked={true}/>
+                                <input type={"radio"} defaultChecked/>
                                 <p>Наличными</p>
                             </div>
                             <Link href={"/products/cart/payment/order-confirmation"}>
