@@ -1,7 +1,7 @@
 "use client"
 
 import React, {useState} from 'react';
-import {addToCart} from "@/redux/cartSlice";
+import {addToCart} from "@/redux/slices/cartSlice";
 import {useDispatch} from "react-redux";
 import Link from "next/link";
 import {v4 as uuidv4} from 'uuid';

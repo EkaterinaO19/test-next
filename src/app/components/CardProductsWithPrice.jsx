@@ -2,7 +2,7 @@
 
 import React from 'react';
 import {useDispatch} from "react-redux";
-import {decrementQuantity, incrementQuantity, removeItem} from "@/redux/cartSlice";
+import {decrementQuantity, incrementQuantity, removeItem} from "@/redux/slices/cartSlice";
 
 function CardProductsWithPrice({id, name, price, image, quantity = 0, size}) {
     const dispatch = useDispatch()

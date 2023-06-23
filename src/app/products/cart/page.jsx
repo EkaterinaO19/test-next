@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import Link from "next/link";
 import CardProductsWithPrice from "@/app/components/CardProductsWithPrice";
 import {useRouter} from "next/navigation";
-import {updateEmail} from "@/redux/emailSlice"
+import {updateEmail} from "@/redux/slices/emailSlice"
 export const metadata = {
     title: 'Your Cart | Online Shop Next App',
     description: 'Add more to your style',
@@ -25,6 +25,7 @@ function Cart() {
     const totalQuantity = useSelector(state => state.totalQuantity)
     const totalPrice = useSelector(state => state.totalPrice)
 
+    // TODO: change use state for dispatch reducer for EMAIL
 
     useEffect(() => {
         function handleClickOutside(event) {
