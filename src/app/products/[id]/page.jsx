@@ -49,18 +49,6 @@ function ProductPage({ params }) {
         }
     },[product])
 
-
-    // {product?.options.some(item => typeof item === 'object') ? "PRODUCT" : "no products"}
-    // console.log("PRODUCT", product?.options);
-
-    // if (Array.isArray(product?.options) && product?.options.length > 0) {
-    //     console.log('Array', product?.options[0]); // true
-    //
-    // } else {
-    //     console.log('Array is undefined or empty');
-    //     console.log(product);
-    // }
-
     return (product&&<ProductCardBig options={options} product={product}/>
     )
 }

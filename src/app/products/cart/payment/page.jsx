@@ -11,7 +11,6 @@ function PaymentPage() {
     const cart = useSelector((state) => state.cart);
     const orderEmail = useSelector((state) => state.email);
 
-
     const dispatch = useDispatch();
 
     const router = useRouter()
@@ -19,7 +18,7 @@ function PaymentPage() {
         try {
             const payload = {
                 total: cart.totalPrice,
-                email,
+                email: orderEmail,
                 paymentStatus: 'AWAITING_PAYMENT',
                 fulfillmentStatus: 'AWAITING_PROCESSING',
                 createDate: new Date().toISOString(),
@@ -43,7 +42,7 @@ function PaymentPage() {
             if (response.ok) {
                 const responseData = await response.json();
                 dispatch(setResponseData(responseData));
-                console.log("RESP", responseData)
+                // console.log("RESP", responseData)
                 router.push("/products/cart/payment/order-confirmation")
                 console.log('Cart data sent successfully');
             } else {
@@ -57,13 +56,13 @@ function PaymentPage() {
 
 
     return (
-        <section className={"flex mt-8 flex-col wrap h-screen"}>
+        <section className="flex flex-col mt-8 p-2">
             <header className="text-center">
-                <h1 className="text-xl font-bold text-gray-900 sm:text-3xl">Оформление заказа</h1>
+                <h1 className="text-xl font-bold text-gray-900 sm:text-lg">Оформление заказа</h1>
             </header>
-            <div className={"flex"}>
-                <div className="w-1/2">
-                    {cart?.map(item => (
+            <div className="flex flex-wrap">
+                <div className="w-full">
+                    {cart?.map((item) => (
                         <CardProductsWithPrice
                             key={item.uId}
                             name={item.name}
@@ -74,32 +73,34 @@ function PaymentPage() {
                         />
                     ))}
                 </div>
-                <div className="w-1/2 mt-8 flex gap-3">
+                <div className="w-full sm:w-1/2 mt-8 flex flex-col sm:flex-row gap-3">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                        <path fillRule="evenodd"
-                              d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
-                              clipRule="evenodd"/>
+                        <path
+                            fillRule="evenodd"
+                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                            clipRule="evenodd"
+                        />
                     </svg>
-                    <div>
-                        <p className={"flex font-bold mb-3"}>Адрес электронной почты:</p>
-                        <div className={"flex gap-3"}>
+                    <div className="flex flex-col">
+                        <p className="font-bold mb-3">Адрес электронной почты:</p>
+                        <div className="flex gap-3">
                             <span>{orderEmail}</span>
-                            <Link className={"underline"} href={'/products/cart'}>Изменить адрес почты</Link>
+                            <Link className="underline sm:text-sm" href="/products/cart">
+                                Изменить адрес почты
+                            </Link>
                         </div>
-                        <div className={"flex gap-3 mt-5 flex-col"}>
-                            <h1 className={"flex font-bold"}>Оплата:</h1>
-                            <div className={"flex gap-2"}>
-                                <input type={"radio"} defaultChecked/>
+                        <div className="flex flex-col mt-5">
+                            <h1 className="font-bold">Оплата:</h1>
+                            <div className="flex gap-2">
+                                <input type="radio" defaultChecked />
                                 <p>Наличными</p>
                             </div>
-                            {/*<Link href={"/products/cart/payment/order-confirmation"}>*/}
                             <button
                                 onClick={sendCartData}
-                                className="mt-5 flex w-full items-center justify-center rounded-md bg-transparent border-2 border-black px-8 py-3 text-base font-medium text-black hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+                                className="mt-5 flex items-center justify-center rounded-md bg-transparent border-2 border-black px-8 py-3 sm:text-sm sm:px-3 sm:py-2 font-medium text-black hover:bg-black hover:text-white focus:outline-none focus:ring-gray-500 "
                             >
                                 Разместить заказ
                             </button>
-                            {/*</Link>*/}
                         </div>
                     </div>
                 </div>

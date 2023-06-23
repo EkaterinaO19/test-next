@@ -4,11 +4,11 @@ import React from 'react';
 function Newsletter(props) {
     return (
         <section className="relative isolate overflow-hidden bg-white py-16 sm:py-24 lg:py-32">
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mx-auto max-w-7xl px-6 lg:px-8 sm:mt-0">
                 <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
                     <div className="max-w-xl lg:max-w-lg">
-                        <h2 className="text-3xl font-bold tracking-tight text-black sm:text-4xl">Subscribe to our newsletter.</h2>
-                        <p className="mt-4 text-lg leading-8 text-gray-800">
+                        <h2 className="text-3xl font-bold tracking-tight text-black sm:text-xl">Subscribe to our newsletter.</h2>
+                        <p className="mt-4 text-lg leading-8 text-gray-800 sm:text-sm">
                             Nostrud amet eu ullamco nisi aute in ad minim nostrud adipisicing velit quis. Duis tempor incididunt
                             dolore.
                         </p>
@@ -36,13 +36,13 @@ function Newsletter(props) {
                     <dl className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2">
                         <div className="flex flex-col items-start">
                             <dt className="mt-4 font-semibold text-black">Weekly articles</dt>
-                            <dd className="mt-2 leading-7 text-gray-600">
+                            <dd className="mt-2 leading-7 text-gray-600 sm:text-sm">
                                 Non laboris consequat cupidatat laborum magna. Eiusmod non irure cupidatat duis commodo amet.
                             </dd>
                         </div>
                         <div className="flex flex-col items-start">
                             <dt className="mt-4 font-semibold text-black">No spam</dt>
-                            <dd className="mt-2 leading-7 text-gray-600">
+                            <dd className="mt-2 leading-7 text-gray-600 sm:text-sm">
                                 Officia excepteur ullamco ut sint duis proident non adipisicing. Voluptate incididunt anim.
                             </dd>
                         </div>

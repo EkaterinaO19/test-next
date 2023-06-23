@@ -17,7 +17,7 @@ function ProductCard({name, price, image, inStock, id}) {
                         </div>
                         <div className="mt-4 pl-2 mb-2 flex justify-between">
                             <div>
-                                {name && <p className="text-xl font-bold text-gray-900 mb-1">{name}</p>}
+                                {name && <p className="text-xl font-bold text-gray-900 mb-1 sm:text-sm">{name}</p>}
                                 <span
                                     className="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">в наличии</span>
                                 <p className="text-md text-gray-800 mb-5">{price}</p>

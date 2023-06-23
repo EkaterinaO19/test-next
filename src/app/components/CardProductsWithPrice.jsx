@@ -18,7 +18,7 @@ function CardProductsWithPrice({id, name, price, image, quantity = 0, size}) {
 
 
                     <div className={"flex flex-col"}>
-                        <h3 className="text-lg text-gray-900">{name}</h3>
+                        <h3 className="text-gray-900 sm:text-sm">{name}</h3>
                         <div className="mt-3 space-y-px text-[14px] text-gray-600">
                             <div>
                                 <dt className="inline">Size:</dt>

@@ -8,12 +8,11 @@ export const metadata = {
     description: 'Choose style whatever you want',
 }
 
-function Products (props) {
+function Products(props) {
     return (
-            <RecommendedProducts />
-        )
+        <RecommendedProducts/>
+    )
 }
-
 
 
 export default Products;

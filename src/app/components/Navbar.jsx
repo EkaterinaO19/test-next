@@ -11,18 +11,12 @@ function Navbar() {
     const [showSearch, setShowSearch] = useState(false);
     const searchRef = useRef(null);
     const [searchQuery, setSearchQuery] = useState('');
+    const [isMobile, setIsMobile] = useState(false);
+
+    const totalAmount = useSelector(state => state.totalQuantity)
 
     const router = useRouter()
 
-    const cart = useSelector((state) => state.cart)
-
-    const getTotalQuantity = () => {
-        let total = 0
-        cart.forEach(item => {
-            total += item.quantity
-        })
-        return total
-    }
 
     const handleSearchClick = () => {
         setShowSearch(!showSearch);
@@ -39,17 +33,27 @@ function Navbar() {
     };
 
 
-        const searchProduct = async () => {
-            try {
-                const data = await searchItem(searchQuery)
-                router.push(`/products/search?keyword=${searchQuery}`);
-                console.log(data)
-            } catch (err) {
-                console.error("Error searching for item:", err);
-            }
+    const searchProduct = async () => {
+        try {
+            const data = await searchItem(searchQuery)
+            router.push(`/products/search?keyword=${searchQuery}`);
+            console.log(data)
+        } catch (err) {
+            console.error("Error searching for item:", err);
         }
+    }
 
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 768);
+        }
+        handleResize();
+        window.addEventListener('resize', handleResize);
 
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        }
+    }, [])
 
     useEffect(() => {
         const handleOutsideClick = (e) => {
@@ -57,7 +61,6 @@ function Navbar() {
                 setShowSearch(false)
             }
         }
-
         document.addEventListener("mousedown", handleOutsideClick)
         return () => {
             document.removeEventListener("mousedown", handleOutsideClick)
@@ -85,24 +88,28 @@ function Navbar() {
                     </form>
                 ) : (
                     <Link href={"/"}>
-                        <h1 className={"font-bold text-2xl"}>Online Shop</h1>
+                        <h1 className={"font-bold text-2xl sm:text-lg"}>Online Shop</h1>
                     </Link>
                 )}
 
                 <div className={"flex"}>
-                    <div className={"flex gap-5 items-center"}>
-                        <Link href={"/products"}>
-                            <span>Каталог</span>
-                        </Link>
+                    <div className={"flex gap-5 items-center sm:gap-2"}>
+                        {!isMobile &&
+                            <Link href={"/products"}>
+                                <span>Каталог</span>
+                            </Link>
+                        }
                         <Link href={"/products/cart"}>
-                            <div className={"flex gap-1"}>
+                            <div className={"flex gap-1 sm:gap-0"}>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                      strokeWidth={1.5}
                                      stroke="currentColor" className="w-6 h-6">
                                     <path strokeLinecap="round" strokeLinejoin="round"
                                           d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/>
                                 </svg>
-                                <span className={"font-bold mt-2"}>{getTotalQuantity() || 0}</span>
+
+                                <span className={"font-bold mt-2 sm:text-sm"}>{totalAmount || 0}</span>
+
                             </div>
                         </Link>
                         <button onClick={handleSearchClick} className={"cursor-pointer"}>

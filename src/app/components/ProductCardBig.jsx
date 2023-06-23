@@ -121,7 +121,7 @@ function ProductCardBig({product, options}) {
                                         imageUrl,
                                         seoDescription,
                                         selectedSize,
-                                        price
+                                        price,
                                     }))
                                 }}
                             >
