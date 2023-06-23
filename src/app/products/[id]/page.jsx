@@ -26,6 +26,8 @@ async function getProduct(productId) {
 
 function ProductPage({ params }) {
     const [product, setProduct] = useState({});
+    const [options, setOptions] = useState(null);
+
 
     useEffect(() => {
         async function fetchData() {
@@ -40,8 +42,26 @@ function ProductPage({ params }) {
         fetchData();
     }, [params.id]);
 
-    return (
-        product?<ProductCardBig product={product}/>:<></>
+
+    useEffect(() => {
+        if(product&&Array.isArray(product?.options) && product?.options.length > 0){
+            setOptions(product?.options[0]);
+        }
+    },[product])
+
+
+    // {product?.options.some(item => typeof item === 'object') ? "PRODUCT" : "no products"}
+    // console.log("PRODUCT", product?.options);
+
+    // if (Array.isArray(product?.options) && product?.options.length > 0) {
+    //     console.log('Array', product?.options[0]); // true
+    //
+    // } else {
+    //     console.log('Array is undefined or empty');
+    //     console.log(product);
+    // }
+
+    return (product&&<ProductCardBig options={options} product={product}/>
     )
 }
 

@@ -9,7 +9,8 @@ import {useRouter} from "next/navigation";
 
 function PaymentPage() {
     const cart = useSelector((state) => state.cart);
-    const email = useSelector((state) => state.email);
+    const orderEmail = useSelector((state) => state.email);
+
 
     const dispatch = useDispatch();
 
@@ -82,7 +83,7 @@ function PaymentPage() {
                     <div>
                         <p className={"flex font-bold mb-3"}>Адрес электронной почты:</p>
                         <div className={"flex gap-3"}>
-                            <span>{email}</span>
+                            <span>{orderEmail}</span>
                             <Link className={"underline"} href={'/products/cart'}>Изменить адрес почты</Link>
                         </div>
                         <div className={"flex gap-3 mt-5 flex-col"}>

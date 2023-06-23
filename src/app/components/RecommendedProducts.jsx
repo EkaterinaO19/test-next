@@ -18,8 +18,8 @@ function RecommendedProducts(props) {
 
 
     return (
-        <section className={"flex justify-center flex-col mt-8"}>
-            <h1 className={"font-bold text-4xl text-center"}>Рекомендуемые товары</h1>
+        <section className={"flex justify-center flex-col"}>
+            <h1 className={"font-bold text-4xl text-center flex-col mt-8"}>Рекомендуемые товары</h1>
             {loading ? <h3>Loading...</h3> : (
                 <div className={"flex flex-wrap justify-center p-5"}>
                     {products.items.map(product => (

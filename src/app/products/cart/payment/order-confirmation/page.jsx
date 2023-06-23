@@ -1,14 +1,13 @@
 "use client"
+
 import React from 'react';
 import Link from "next/link";
 import {useSelector} from "react-redux";
 
-const selectResponseId = (state) => state?.response?.id;
-
 function OrderConfirmationPage() {
-    // const orderId = useSelector((state) => state.response.id);
-    // console.log("Order confirmation", orderId)
-    const responseId = useSelector(selectResponseId);
+    const orderEmail = useSelector((state) => state.email);
+
+
     return (
         <section className={"flex flex-col"}>
                 <div className="flex items-center justify-center h-screen">
@@ -20,7 +19,7 @@ function OrderConfirmationPage() {
                                       d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
                             <h1 className="text-4xl font-bold">Спасибо за заказ! 🎉</h1>
-                            <p>Уведомления о состоянии заказа мы будем присылать на: email.com</p>
+                            <p>Уведомления о состоянии заказа мы будем присылать на: {orderEmail}</p>
                             <Link href={"/products/cart"}>
                                 <button
                                     className="inline-flex items-center px-4 py-2 text-white bg-black border border-black rounded rounded-full hover:bg-gray-700 focus:outline-none focus:ring"

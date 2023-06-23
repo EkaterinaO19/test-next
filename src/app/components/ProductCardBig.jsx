@@ -10,7 +10,7 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-function ProductCardBig({product}) {
+function ProductCardBig({product, options}) {
     const {id, name, defaultDisplayedPriceFormatted, imageUrl, seoDescription, price} = product;
     const dispatch = useDispatch();
 
@@ -77,34 +77,34 @@ function ProductCardBig({product}) {
                     {/* Options */}
                     <div className="mt-4 lg:row-span-3 lg:mt-0">
                         <h2 className="sr-only">Product information</h2>
-                        <p className="text-3xl tracking-tight text-gray-900">{defaultDisplayedPriceFormatted}</p>
+                        <p>Цена: </p>
+                        <p className="text-3xl tracking-tight text-gray-900 font-bold">{defaultDisplayedPriceFormatted}</p>
 
                         <form className="mt-10">
 
                             {/* Sizes */}
                             <div className="mt-10 flex flex-col gap-3">
-                                <span className={"font-bold"}>Choose a size:</span>
-                                <div className="flex items-center justify-between">
-                                    <a href="#" className="text-sm font-medium text-gray-600 hover:text-gray-500">
-                                        Size guide
-                                    </a>
-                                </div>
+                                {options && options.choices && <> <span className={"font-bold"}>Choose a size:</span>
+                                    <div className="flex items-center justify-between">
+                                        <a href="#" className="text-sm font-medium text-gray-600 hover:text-gray-500">
+                                            Size guide
+                                        </a>
+                                    </div>
+                                </>}
+
                                 <div className="flex gap-8 ">
-                                    {/*{product?.options.length !== 0 && (*/}
-                                    {/*    product?.options[0]?.choices?.map((choice) => (*/}
-                                    {/*        <label key={uuidv4()}>*/}
-                                    {/*            <input*/}
-                                    {/*                className={"cursor-pointer"}*/}
-                                    {/*                type="radio"*/}
-                                    {/*                name="size"*/}
-                                    {/*                value={choice.text}*/}
-                                    {/*                checked={selectedSize === choice.text}*/}
-                                    {/*                onChange={handleSizeChange}*/}
-                                    {/*            />*/}
-                                    {/*            <p>{choice.text}</p>*/}
-                                    {/*        </label>*/}
-                                    {/*    ))*/}
-                                    {/*)}*/}
+                                    {options && options.choices.map(option => (
+                                        <label key={option.text}>
+                                            <input
+                                                className={"cursor-pointer"}
+                                                type="radio"
+                                                name="size"
+                                                value={option.text}
+                                                checked={selectedSize === option.text}
+                                                onChange={handleSizeChange}
+                                            />
+                                            <p>{option.text}</p>
+                                        </label>))}
                                 </div>
                             </div>
 
@@ -129,7 +129,7 @@ function ProductCardBig({product}) {
                             </button>
                             <Link href={"/products/cart"}>
                                 <button
-                                    className="mt-10 flex w-full items-center justify-center rounded-md bg-transparent border-2 border-black px-8 py-3 text-base font-medium text-black hover:bg-black hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+                                    className="mt-3 flex w-full items-center justify-center rounded-md bg-gray-800 border-2 border-gray-800 px-8 py-3 text-base font-medium text-white hover:bg-gray-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
                                 >
                                     Перейти в корзину
                                 </button>
