@@ -1,4 +1,5 @@
 "use client"
+
 import './globals.css'
 import {Inter} from 'next/font/google'
 import Navbar from "@/app/components/Navbar";
@@ -6,6 +7,10 @@ import Footer from "@/app/components/Footer";
 import {Provider} from "react-redux";
 import {persistor, store} from "@/redux/store";
 import {PersistGate} from "redux-persist/integration/react";
+import {ErrorBoundary} from "next/dist/client/components/error-boundary";
+import Error from "@/app/error";
+import {Suspense} from "react";
+import Loading from "@/loading";
 
 const inter = Inter({subsets: ['latin']})
 
@@ -21,7 +26,11 @@ export default function RootLayout({children}) {
         <Provider store={store}>
             <PersistGate persistor={persistor}>
                 <Navbar/>
-                <main>{children}</main>
+                <Suspense fallback={<Loading />}>
+                    <ErrorBoundary errorComponent={<Error/>}>
+                        <main>{children}</main>
+                    </ErrorBoundary>
+                </Suspense>
                 <Footer/>
             </PersistGate>
         </Provider>

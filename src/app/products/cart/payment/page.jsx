@@ -35,7 +35,7 @@ function PaymentPage() {
                 headers: {
                     'Content-Type': 'application/json',
                     "Authorization": "Bearer public_7BxbJGWyDaZfSQqjVS5Ftr4jzXkS43UD",
-        },
+                },
                 body: JSON.stringify(payload),
             });
 
@@ -56,56 +56,60 @@ function PaymentPage() {
 
 
     return (
-        <section className="flex flex-col mt-8 p-2">
-            <header className="text-center">
-                <h1 className="text-xl font-bold text-gray-900 sm:text-lg">Оформление заказа</h1>
-            </header>
-            <div className="flex flex-wrap">
-                <div className="w-full">
-                    {cart?.map((item) => (
-                        <CardProductsWithPrice
-                            key={item.uId}
-                            name={item.name}
-                            price={item.defaultDisplayedPriceFormatted}
-                            image={item.imageUrl}
-                            quantity={item.quantity}
-                            id={item.id}
-                        />
-                    ))}
-                </div>
-                <div className="w-full sm:w-1/2 mt-8 flex flex-col sm:flex-row gap-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+        <>
+            {cart?.length === 0 ? (<div className={"flex items-center justify-center h-screen flex-col gap-3"}>
+                    <p className={"text-xl font-bold text-gray-900 sm:text-3xl"}>Ваша корзина пуста!</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                         className="w-6 h-6">
                         <path
-                            fillRule="evenodd"
-                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
-                            clipRule="evenodd"
-                        />
+                            d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z"/>
                     </svg>
-                    <div className="flex flex-col">
-                        <p className="font-bold mb-3">Адрес электронной почты:</p>
-                        <div className="flex gap-3">
-                            <span>{orderEmail}</span>
-                            <Link className="underline sm:text-sm" href="/products/cart">
-                                Изменить адрес почты
-                            </Link>
+                    <Link className={"underline cursor-pointer"} href={"/products"}>Перейти в каталог</Link>
+                </div>)
+                : <section className="flex flex-col flex-wrap mt-8 p-2">
+                    <header className="text-center">
+                        <h1 className="text-xl font-bold text-gray-900 sm:text-lg">Оформление заказа</h1>
+                    </header>
+                    <div className="flex flex-wrap justify-center">
+                        <div className="w-full">
+                            {cart?.map((item) => (
+                                <CardProductsWithPrice
+                                    key={item.uId}
+                                    name={item.name}
+                                    price={item.defaultDisplayedPriceFormatted}
+                                    image={item.imageUrl}
+                                    quantity={item.quantity}
+                                    id={item.id}
+                                />
+                            ))}
                         </div>
-                        <div className="flex flex-col mt-5">
-                            <h1 className="font-bold">Оплата:</h1>
-                            <div className="flex gap-2">
-                                <input type="radio" defaultChecked />
-                                <p>Наличными</p>
+                        <div className="flex flex-col justify-center m-20">
+                            <p className="font-bold mb-3">Адрес электронной почты:</p>
+                            <div className="flex gap-3">
+                                <span>{orderEmail}</span>
+                                <Link className="underline sm:text-sm" href="/products/cart">
+                                    Изменить адрес почты
+                                </Link>
+                            </div>
+                            <div className="flex flex-col mt-5">
+                                <h1 className="font-bold">Оплата:</h1>
+                                <div className="flex gap-2">
+                                    <input type="radio" defaultChecked/>
+                                    <p>Наличными</p>
+                                </div>
                             </div>
                             <button
                                 onClick={sendCartData}
-                                className="mt-5 flex items-center justify-center rounded-md bg-transparent border-2 border-black px-8 py-3 sm:text-sm sm:px-3 sm:py-2 font-medium text-black hover:bg-black hover:text-white focus:outline-none focus:ring-gray-500 "
+                                className="mt-5 items-center rounded-md bg-transparent border-2 border-black px-8 py-3 sm:text-sm sm:px-3 sm:py-2 font-medium text-black hover:bg-black hover:text-white focus:outline-none focus:ring-gray-500 "
                             >
                                 Разместить заказ
                             </button>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
+                </section>
+            }
+        </>
+
     );
 }
 

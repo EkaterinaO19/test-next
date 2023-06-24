@@ -1,7 +1,6 @@
 "use client"
 
-import React from 'react';
-
+import Image from "next/image";
 
 function ProductCard({name, price, image, inStock, id}) {
     return (
@@ -11,9 +10,15 @@ function ProductCard({name, price, image, inStock, id}) {
                 {inStock ? (
                     <>
                         <div className="overflow-hidden rounded-2xl relative">
-                            <img
+                            <Image
+                                width={0}
+                                height={0}
+                                sizes="100vw"
                                 className="h-70 rounded-2xl w-full object-cover transition-transform duration-500 hover:scale-110 "
-                                src={image}/>
+                                src={image}
+                                loading={"lazy"}
+                                alt={name}
+                            />
                         </div>
                         <div className="mt-4 pl-2 mb-2 flex justify-between">
                             <div>

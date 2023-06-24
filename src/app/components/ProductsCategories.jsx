@@ -28,7 +28,7 @@ async function ProductsCategories(props) {
             <h1 className={"font-bold text-4xl text-center sm:text-xl"}>Категории товаров</h1>
             <div className={"flex flex-wrap justify-center gap-8 mt-8"}>
                 {categories.items.map((category) => (
-                    <Link href={`/categories/${category.id}`} key={category.id} >
+                    <Link href={`/products`} key={category.id} >
                         <div className="bg-gray-200 w-60 h-60 relative overflow-hidden shadow-2xl rounded-lg cursor-pointer hover:opacity-90">
                             <div className="absolute inset-0">
                                 <div className="before:absolute before:inset-0 before:bg-black before:opacity-30" />
