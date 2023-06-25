@@ -24,11 +24,11 @@ export default function RootLayout({children}) {
         <html lang="en">
         <body className={inter.className}>
         <Provider store={store}>
-            <PersistGate persistor={persistor}>
+            <PersistGate persistor={persistor} >
                 <Navbar/>
                 <Suspense fallback={<Loading />}>
                     <ErrorBoundary errorComponent={<Error/>}>
-                        <main>{children}</main>
+                        <main className={"flex flex-col min-h-screen"}>{children}</main>
                     </ErrorBoundary>
                 </Suspense>
                 <Footer/>

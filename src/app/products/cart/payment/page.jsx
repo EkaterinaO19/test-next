@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react';
+import React, {useState} from 'react';
 import Link from "next/link";
 import CardProductsWithPrice from "@/app/components/CardProductsWithPrice";
 import {useDispatch, useSelector} from "react-redux";
@@ -9,16 +9,17 @@ import {useRouter} from "next/navigation";
 
 function PaymentPage() {
     const cart = useSelector((state) => state.cart);
-    const orderEmail = useSelector((state) => state.email);
+    const email = useSelector((state) => state.email); // Get the email from the store
+
+    console.log(email)
 
     const dispatch = useDispatch();
-
     const router = useRouter()
     const sendCartData = async () => {
         try {
             const payload = {
                 total: cart.totalPrice,
-                email: orderEmail,
+                email,
                 paymentStatus: 'AWAITING_PAYMENT',
                 fulfillmentStatus: 'AWAITING_PROCESSING',
                 createDate: new Date().toISOString(),
@@ -42,7 +43,6 @@ function PaymentPage() {
             if (response.ok) {
                 const responseData = await response.json();
                 dispatch(setResponseData(responseData));
-                // console.log("RESP", responseData)
                 router.push("/products/cart/payment/order-confirmation")
                 console.log('Cart data sent successfully');
             } else {
@@ -86,7 +86,7 @@ function PaymentPage() {
                         <div className="flex flex-col justify-center m-20">
                             <p className="font-bold mb-3">Адрес электронной почты:</p>
                             <div className="flex gap-3">
-                                <span>{orderEmail}</span>
+                                <span>{email}</span>
                                 <Link className="underline sm:text-sm" href="/products/cart">
                                     Изменить адрес почты
                                 </Link>
