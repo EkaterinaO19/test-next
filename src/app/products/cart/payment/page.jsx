@@ -1,21 +1,24 @@
 "use client"
 
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import Link from "next/link";
 import CardProductsWithPrice from "@/app/components/CardProductsWithPrice";
 import {useDispatch, useSelector} from "react-redux";
 import {setResponseData} from "@/redux/slices/responseSlice";
 import {useRouter} from "next/navigation";
+import Loading from "@/loading";
 
 function PaymentPage() {
     const cart = useSelector((state) => state.cart);
     const email = useSelector((state) => state.email); // Get the email from the store
-
-    console.log(email)
+    const [loading, setLoading] = useState(false)
 
     const dispatch = useDispatch();
     const router = useRouter()
-    const sendCartData = async () => {
+
+
+    const sendCartData = useCallback(async () => {
+        setLoading(true)
         try {
             const payload = {
                 total: cart.totalPrice,
@@ -30,7 +33,6 @@ function PaymentPage() {
                 })),
             };
 
-            // Make the POST request to send cart data
             const response = await fetch(`https://app.ecwid.com/api/v3/58958138/orders`, {
                 method: 'POST',
                 headers: {
@@ -43,20 +45,21 @@ function PaymentPage() {
             if (response.ok) {
                 const responseData = await response.json();
                 dispatch(setResponseData(responseData));
+                setLoading(false)
                 router.push("/products/cart/payment/order-confirmation")
                 console.log('Cart data sent successfully');
             } else {
-                // Request failed, handle the error
                 console.error('Failed to send cart data');
             }
         } catch (error) {
             console.error('Error:', error);
         }
-    };
+    }, [cart, email, dispatch, router])
 
 
     return (
         <>
+            {loading && <Loading/>}
             {cart?.length === 0 ? (<div className={"flex items-center justify-center h-screen flex-col gap-3"}>
                     <p className={"text-xl font-bold text-gray-900 sm:text-3xl"}>Ваша корзина пуста!</p>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"

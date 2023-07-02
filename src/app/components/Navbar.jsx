@@ -83,7 +83,6 @@ function Navbar() {
                             onChange={(e) => setSearchQuery(e.target.value)}
                             onKeyDown={handleSearchKeyDown}
                             value={searchQuery}
-
                         />
                     </form>
                 ) : (

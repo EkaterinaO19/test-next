@@ -1,9 +1,9 @@
 "use client"
 
-
 import {setResponseData} from "@/redux/slices/responseSlice";
 import {useDispatch} from "react-redux";
 import {useRouter} from "next/navigation";
+import Loading from "@/loading";
 
 const API_URL = "https://app.ecwid.com/api/v3/58958138/";
 
@@ -42,8 +42,7 @@ export async function fetchProducts() {
             throw new Error("Request failed with status " + response.status);
         }
     } catch (error) {
-        console.log(error);
-        throw new Error("Failed to fetch products");
+        throw new Error(error, "Failed to fetch products");
     }
 }
 
@@ -62,9 +61,9 @@ export async function getProduct(productId) {
             throw new Error("Request failed with status " + response.status);
         }
     } catch (error) {
-        console.log(error)
+        console.log(error + "Failed to fetch product")
     }
-    return <div>{productId ? JSON.stringify(productId) : "Loading..."}</div>;
+    return <div>{productId ? JSON.stringify(productId) : <Loading/>}</div>;
 }
 
 export const useClient = () => {

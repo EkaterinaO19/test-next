@@ -1,17 +1,20 @@
 "use client"
 
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import SearchComponent from "@/app/components/SearchComponent";
 import {useSearchParams} from "next/navigation";
+import Loading from "@/loading";
 
 
 function SearchPage(props) {
     const searchParams = useSearchParams()
     const search = searchParams.get('keyword')
     const [searchData, setSearchData] = useState([]);
+    const [loading, setLoading] = useState(false)
 
-    const searchProduct = async () => {
+    const searchProduct = useCallback(async () => {
         try {
+            setLoading(true);
             const response = await fetch(`https://app.ecwid.com/api/v3/58958138/products?keyword=${search}`, {
                 headers: {
                     "Content-type": "application/json",
@@ -21,18 +24,23 @@ function SearchPage(props) {
 
             const data = await response.json();
             setSearchData(data.items);
+            setLoading(false)
         } catch (err) {
             console.error("Error searching for item:", err);
         }
-    };
+    }, [search])
 
     useEffect(() => {
         searchProduct();
-    }, [search]);
+    }, [search, searchProduct]);
 
 
     return (
-        <SearchComponent data={searchData}/>
+        <>
+            {loading && <Loading/>}
+            <SearchComponent data={searchData}/>
+        </>
+
     );
 }
 
